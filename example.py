@@ -3,7 +3,7 @@ from tqdm import tqdm
 import os
 
 # Login
-client = HyperClient("https://api.hyperplan.io/v1")
+client = HyperClient("https://backend-cdn-endpoint-prod-afccapcwframgnag.z02.azurefd.net/v1")
 auth = client.login(os.getenv("API_USR"), os.getenv("API_PWD"))
 
 # Listing Available Label Metas
