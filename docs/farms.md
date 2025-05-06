@@ -362,3 +362,42 @@ The request body should be a JSON array of data entries with the following struc
   }
 ]
 ```
+
+## DELETE `/v1/farm-data/bulk-delete`
+
+### Description
+
+This endpoint allows **bulk deletion** of farm data associated with a specific data layer (`farm_data_meta_id`) for one or more specified farms (`farm_codes`).  
+It is used to remove values previously recorded for a given farm and data layer.
+
+### Request
+
+- **Method:** `DELETE`
+- **URL:** `/v1/farm-data/bulk-delete`
+- **Query Parameters:**
+
+| Name              | Type             | Required | Description                                                                 |
+|-------------------|------------------|----------|-----------------------------------------------------------------------------|
+| farm_codes        | array of strings | Yes      | List of farm codes (e.g., SIRETs) for which data should be deleted.        |
+| farm_data_meta_id | integer          | Yes      | ID of the data layer to delete data from (as defined in `/v1/farm-data-meta`). |
+
+### Response
+
+- **204 No Content**: The farm data entries were successfully deleted. No content is returned.
+
+### Behavior
+
+- Deletes all data entries matching the specified `farm_data_meta_id` **for each farm** in the `farm_codes` list.
+
+### Example Request
+
+```http
+DELETE /v1/farm-data/bulk-delete?farm_codes=12345678900011&farm_codes=98765432100022&farm_data_meta_id=10
+```
+
+### Response
+
+```
+204 No Content
+```
+

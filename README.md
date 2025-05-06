@@ -24,6 +24,10 @@ The API provides detailed label metadata in a predefined format, including valid
 
 For parcel-specific information, the API supports retrieving detailed data by parcel ID, with optional filters for labels, years, and weeks, offering a comprehensive view of parcel characteristics and changes over time.
 
+### Farms
+
+The [Farm API](./docs/farms.md) allows users to associate and disassociate farms with organizations, which is reflected visually in map interfaces (e.g., from black to green when linked). In addition to managing this linkage, the API supports attaching data layers—such as market share or coverage metrics—to farms. These layers can be filtered by criteria like crop type and are aggregated at the organization level. This setup enables practical data analysis and visualization, helping teams monitor trends and make decisions based on reliable, structured information.
+
 ### Aggregation and Analysis
 
 The API also provides reduce operations, enabling users to perform aggregate calculations (sum, average, etc.) on selected parcel attributes based on specific filters and bins. This feature is particularly useful for generating summaries and insights across multiple parcels, allowing for deeper analysis and better decision-making on a large scale. By applying binning and filtering techniques, users can tailor their data exploration to specific areas of interest, gaining valuable insights into agricultural trends and performance metrics.
