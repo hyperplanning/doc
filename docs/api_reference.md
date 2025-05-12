@@ -111,6 +111,7 @@ GET `/v1/labels/info`
     "category": "TEXT",
     "isYearly": true,
     "isWeekly": false,
+    "isOwner": true,
     "isEditable": true,
     "color": "#00FF00",
     "icon": "crop-icon",
@@ -125,6 +126,64 @@ GET `/v1/labels/info`
   // ... additional label metadata
 ]
 ```
+
+## Update label value for a parcel
+
+Update the **value(s)** of a label that is already attached to a parcel or create one.
+
+---
+
+### HTTP 
+Request
+PATCH `/v1/labels/parcel/{parcel_id}/{meta_id}`
+
+
+| Path parameter | Type&nbsp;(in URI) | Description                                                    |
+|----------------|-------------------|----------------------------------------------------------------|
+| `parcel_id`    | integer           | Identifier of the parcel that owns the label.                  |
+| `meta_id`      | integer           | Identifier of the label *meta* definition to update or create. |
+
+Both parameters are **required**.
+
+---
+
+## Request Body (`application/json`)
+
+Only a subset of the following properties is required, depending on the *granularity* of the label:
+
+| Property | Type | Required | When to include |
+|----------|------|----------|-----------------|
+| `value`  | number<br>(int or float) | ✔︎ | Always. New value for the label. |
+| `year`   | integer | ✔︎ if the label is **yearly** or **weekly + yearly** | Calendar year the value refers to. |
+| `week`   | integer | ✔︎ if the label is **weekly + yearly** | ISO-8601 week number (1-53) the value refers to. |
+
+```jsonc
+// yearly label
+{
+  "value": 42,
+  "year": 2025
+}
+
+// weekly + yearly label
+{
+  "value": 18.5,
+  "week": 14,
+  "year": 2025
+}
+
+// non-periodic label
+{
+  "value": 7
+}
+```
+
+> ⚠️ **Important**  
+> You can only update labels for which `isOwner` is `true`.  
+> Ownership information will soon be available from **`GET /v1/labels/info`**.
+
+If the caller is *not* the owner, the API responds with **`403 Forbidden`**.
+
+
 
 ## Looking up a Parcel and its labels
 GET `/v1/parcels/{parcel_id}`
