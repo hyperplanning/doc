@@ -204,13 +204,13 @@ These layers define different types of aggregated information such as **market s
 
 | Name  | Type    | Required | Description                                       |
 |-------|---------|----------|---------------------------------------------------|
-| year  | integer | Yes      | Year of the campaign (will be deprecated soon).   |
+| year  | integer | No       | Year of the campaign. If not provided, returns available years. |
 
 ### Response
 
 - **200 OK**: Returns metadata describing the available farm data layers.
 
-#### Response Format
+#### Response Format (when year is provided)
 
 ```json
 {
@@ -230,24 +230,34 @@ These layers define different types of aggregated information such as **market s
           "values": [2, 16, 5, 1, 12, 18, 11, 3, 4, 21]
         }
       ]
-    },
+    }
+  ]
+}
+```
+
+#### Response Format (when year is not provided)
+
+```json
+{
+  "farmDataMeta": [
     {
-      "id": 2,
+      "id": 1,
       "orgaId": 1,
-      "name": "Flash coverage",
-      "description": "Visited Ha divided by the zone potential.",
+      "name": "Collect market share",
+      "description": "Collected volume divided by the zone potential.",
       "operation": "sum",
-      "labelMetaId": 3,
+      "labelMetaId": 10,
       "type": "Market Area",
       "lastUpdatedAt": "2023-09-16T12:11:43.000000",
       "possibleValues": [
         {
           "key": 1,
-          "values": [2, 16, 13, 5, 20, 1, 14, 17, 12, 18, 11, 3, 4, 10, 19, 15, 9, 21]
+          "values": [2, 16, 5, 1, 12, 18, 11, 3, 4, 21]
         }
       ]
     }
-  ]
+  ],
+  "years": [2020, 2021, 2022, 2023, 2024]
 }
 ```
 
@@ -266,36 +276,18 @@ These layers define different types of aggregated information such as **market s
 - **possibleValues** *(array)*: Describes the label and list of available values:  
   - `key: 1` → refers to **label 1**, typically **crop**  
   - `values` → list of possible choices for that label, which can be mapped from label 1's options (e.g., different crop types)
+- **years** *(array)*: List of available years for the farm data meta (only present when year parameter is not provided)
 
-### Example
+### Examples
 
+#### With year parameter
 ```http
 GET /v1/farm-data-meta?year=2024
 ```
 
-### Response
-
-```json
-{
-  "farmDataMeta": [
-    {
-      "id": 1,
-      "orgaId": 3,
-      "name": "Collect market share",
-      "description": "Collected volume divided by the zone potential.",
-      "operation": "sum",
-      "labelMetaId": 10,
-      "type": "Market Area",
-      "lastUpdatedAt": "2023-09-16T12:11:43.000000",
-      "possibleValues": [
-        {
-          "key": 1,
-          "values": [2, 16, 5, 1, 12, 18, 11, 3, 4, 21]
-        }
-      ]
-    }
-  ]
-}
+#### Without year parameter
+```http
+GET /v1/farm-data-meta
 ```
 
 ## POST `/v1/farm-data/bulk`

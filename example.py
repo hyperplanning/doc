@@ -7,7 +7,7 @@ client = HyperClient("https://backend-cdn-endpoint-prod-afccapcwframgnag.z02.azu
 auth = client.login(os.getenv("API_USR"), os.getenv("API_PWD"))
 
 # Listing Available Label Metas
-labels = client.get("labels/info")
+labels = client.get("parcels/labels/info")
 labels = {l["name"]: l for l in labels.json()['labelInfos']}
 
 # Getting Zones Groups
