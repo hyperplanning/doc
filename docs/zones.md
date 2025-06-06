@@ -13,20 +13,21 @@ This endpoint does not require any parameters.
 The response is an array of zone group objects, where each object provides information about a specific zone group. Below is a breakdown of the fields in the response:
 
 #### Response Fields:
-- `editor` (nullable, string): The user who last edited the zone group, or `null` if no editor is assigned.
+- `editors` (array of integers): The users who last edited or having edition access to the zone group.
 - `isPublic` (boolean): A flag indicating whether the zone group is public (`true`) or restricted to specific users (`false`).
 - `id` (integer): The unique identifier for the zone group.
 - `floor` (nullable, string): This field indicates the atomic unit or base level of the zone within the zone group. It specifies the smallest unit that constitutes the zone group, and its value can vary depending on the specific zone structure.
 - `isExclusive` (boolean): A flag that indicates whether the zone group's areas are exclusive (`true`, meaning they do not overlap geographically) or non-exclusive (`false`, meaning they can overlap geographically).
 - `name` (string): The name of the zone group (e.g., "Municipalities", "Postal codes", "Departments", etc.).
 - `mapboxId` (string): The unique identifier for the zone group used in the Mapbox system for visualization (e.g., `adm3`, `pos4`, `adm2`).
+- `isValid` (boolean): A flag indicating whether the zone group is valid (have at least one section).
 
 ### Example Response
 
 ```json
 [
   {
-    "editor": null,
+    "editors": [123],
     "isPublic": true,
     "id": 2,
     "floor": null,
@@ -35,7 +36,7 @@ The response is an array of zone group objects, where each object provides infor
     "mapboxId": "adm3"
   },
   {
-    "editor": null,
+    "editors": [],
     "isPublic": true,
     "id": 3,
     "floor": null,
@@ -44,7 +45,7 @@ The response is an array of zone group objects, where each object provides infor
     "mapboxId": "pos4"
   },
   {
-    "editor": null,
+    "editors": [],
     "isPublic": true,
     "id": 4,
     "floor": null,
@@ -53,7 +54,7 @@ The response is an array of zone group objects, where each object provides infor
     "mapboxId": "adm2"
   },
   {
-    "editor": null,
+    "editors": [],
     "isPublic": true,
     "id": 5,
     "floor": null,
@@ -62,7 +63,7 @@ The response is an array of zone group objects, where each object provides infor
     "mapboxId": "adm1"
   },
   {
-    "editor": null,
+    "editors": [],
     "isPublic": true,
     "id": 6,
     "floor": null,
