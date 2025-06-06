@@ -20,9 +20,9 @@ client.login(os.getenv("API_USR"), os.getenv("API_PWD"))
 
 ## 3. Listing Available Label Metas
 
-This section retrieves metadata for all available labels and stores them in a dictionary with label names as keys for easier access using the `labels/info` endpoint:
+This section retrieves metadata for all available labels and stores them in a dictionary with label names as keys for easier access using the `parcels/labels/info` endpoint:
 ```python
-labels = client.get("labels/info")
+labels = client.get("parcels/labels/info")
 labels = {l["name"]: l for l in labels.json()['labelInfos']}
 ```
 

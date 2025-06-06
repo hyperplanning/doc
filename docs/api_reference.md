@@ -94,9 +94,9 @@ Other label types like `"ZONE"`, `"FARM"`, `"FACILITY"`, and `"USER"` have their
 ```
 
 ## HTTP Request
-To get metadata information available to your organization, use the `/v1/labels/info` endpoint:
+To get metadata information available to your organization, use the `/v1/parcels/labels/info` endpoint:
 
-GET `/v1/labels/info`
+GET `/v1/parcels/labels/info`
 
 ### Response
 - Status Code: `200 OK`
@@ -133,10 +133,8 @@ Update the **value(s)** of a label that is already attached to a parcel or creat
 
 ---
 
-### HTTP 
-Request
-PATCH `/v1/labels/parcel/{parcel_id}/{meta_id}`
-
+### HTTP Request
+PATCH `/v1/parcels/labels/{parcel_id}/{meta_id}`
 
 | Path parameter | Type&nbsp;(in URI) | Description                                                    |
 |----------------|-------------------|----------------------------------------------------------------|
@@ -179,7 +177,7 @@ Only a subset of the following properties is required, depending on the *granula
 
 > ⚠️ **Important**  
 > You can only update labels for which `isOwner` is `true`.  
-> Ownership information will soon be available from **`GET /v1/labels/info`**.
+> Ownership information will soon be available from **`GET /v1/parcels/labels/info`**.
 
 If the caller is *not* the owner, the API responds with **`403 Forbidden`**.
 
