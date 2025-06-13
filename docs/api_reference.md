@@ -184,10 +184,40 @@ If the caller is *not* the owner, the API responds with **`403 Forbidden`**.
 
 
 ## Looking up a Parcel and its labels
-GET `/v1/parcels/{parcel_id}`
+GET `/v1/parcels/by-id/{parcel_id}`
 
 #### Parameters
 - `parcel_id` (integer, required): The unique identifier for the parcel.
+- `labelIds` (array of integers, optional): List of label meta IDs to filter labels.
+
+### Response
+```json
+{
+  "id": "12345",
+  "geometry": "MULTIPOLYGON(((...)))",
+  "centroid": "POINT(...)",
+  "labels": [
+    {
+      "labelMetaId": 1,
+      "values": [
+        {
+          "year": 2023,
+          "week": null,
+          "status": "VALIDATED",
+          "value": 1  // Corresponds to "Wheat"
+        }
+      ]
+    }
+    // ... additional labels
+  ]
+}
+```
+
+## Looking up a Parcel by Code
+GET `/v1/parcels/by-code/{parcel_code}`
+
+#### Parameters
+- `parcel_code` (string, required): The unique code identifier for the parcel.
 - `labelIds` (array of integers, optional): List of label meta IDs to filter labels.
 
 ### Response
